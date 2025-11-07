@@ -1,0 +1,11 @@
+sku,name,price,stock,categoryId
+TESTSKU001,Test Item Product 001,99.99,100,1
+TESTSKU002,Test Item Product 002,149.50,250,1
+TESTSKU003,Test Item Product 003,75.00,50,2
+TESTSKU004,Test Item Product 004,299.99,75,2
+TESTSKU005,Test Item Product 005,45.99,200,3
+TESTSKU006,Test Item Product 006,199.00,120,3
+TESTSKU007,Test Item Product 007,89.50,90,4
+TESTSKU008,Test Item Product 008,129.99,150,4
+TESTSKU009,Test Item Product 009,59.99,300,5
+TESTSKU010,Test Item Product 010,249.00,60,5

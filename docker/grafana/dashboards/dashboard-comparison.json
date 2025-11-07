@@ -1,0 +1,204 @@
+{
+  "dashboard": {
+    "title": "Benchmark - Comparison Dashboard",
+    "tags": ["benchmark", "comparison"],
+    "timezone": "browser",
+    "refresh": "10s",
+    "time": {
+      "from": "now-30m",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "CPU Comparison",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "process_cpu_usage{job=\"variante-a-jersey\"} * 100",
+            "legendFormat": "Variante A - Jersey",
+            "refId": "A"
+          },
+          {
+            "expr": "process_cpu_usage{job=\"variante-c-spring-mvc\"} * 100",
+            "legendFormat": "Variante C - Spring MVC",
+            "refId": "B"
+          },
+          {
+            "expr": "process_cpu_usage{job=\"variante-d-spring-data-rest\"} * 100",
+            "legendFormat": "Variante D - Spring Data REST",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Heap Memory Comparison",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "jvm_memory_used_bytes{job=\"variante-a-jersey\", area=\"heap\"} / 1024 / 1024",
+            "legendFormat": "Variante A - Jersey (MB)",
+            "refId": "A"
+          },
+          {
+            "expr": "jvm_memory_used_bytes{job=\"variante-c-spring-mvc\", area=\"heap\"} / 1024 / 1024",
+            "legendFormat": "Variante C - Spring MVC (MB)",
+            "refId": "B"
+          },
+          {
+            "expr": "jvm_memory_used_bytes{job=\"variante-d-spring-data-rest\", area=\"heap\"} / 1024 / 1024",
+            "legendFormat": "Variante D - Spring Data REST (MB)",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decmbytes"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "GC Pause Time Comparison",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "rate(jvm_gc_pause_seconds_sum{job=\"variante-a-jersey\"}[1m]) * 1000",
+            "legendFormat": "Variante A - {{action}}",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(jvm_gc_pause_seconds_sum{job=\"variante-c-spring-mvc\"}[1m]) * 1000",
+            "legendFormat": "Variante C - {{action}}",
+            "refId": "B"
+          },
+          {
+            "expr": "rate(jvm_gc_pause_seconds_sum{job=\"variante-d-spring-data-rest\"}[1m]) * 1000",
+            "legendFormat": "Variante D - {{action}}",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Thread Count Comparison",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "targets": [
+          {
+            "expr": "jvm_threads_current{job=\"variante-a-jersey\"}",
+            "legendFormat": "Variante A - Jersey",
+            "refId": "A"
+          },
+          {
+            "expr": "jvm_threads_current{job=\"variante-c-spring-mvc\"}",
+            "legendFormat": "Variante C - Spring MVC",
+            "refId": "B"
+          },
+          {
+            "expr": "jvm_threads_current{job=\"variante-d-spring-data-rest\"}",
+            "legendFormat": "Variante D - Spring Data REST",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "Current Heap Usage (%)",
+        "type": "bargauge",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "targets": [
+          {
+            "expr": "(jvm_memory_used_bytes{job=\"variante-a-jersey\", area=\"heap\"} / jvm_memory_max_bytes{job=\"variante-a-jersey\", area=\"heap\"}) * 100",
+            "legendFormat": "Variante A",
+            "refId": "A"
+          },
+          {
+            "expr": "(jvm_memory_used_bytes{job=\"variante-c-spring-mvc\", area=\"heap\"} / jvm_memory_max_bytes{job=\"variante-c-spring-mvc\", area=\"heap\"}) * 100",
+            "legendFormat": "Variante C",
+            "refId": "B"
+          },
+          {
+            "expr": "(jvm_memory_used_bytes{job=\"variante-d-spring-data-rest\", area=\"heap\"} / jvm_memory_max_bytes{job=\"variante-d-spring-data-rest\", area=\"heap\"}) * 100",
+            "legendFormat": "Variante D",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 70, "color": "yellow"},
+                {"value": 85, "color": "red"}
+              ]
+            }
+          }
+        },
+        "options": {
+          "orientation": "horizontal",
+          "displayMode": "gradient"
+        }
+      },
+      {
+        "id": 6,
+        "title": "Total GC Collections",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "targets": [
+          {
+            "expr": "sum(jvm_gc_pause_seconds_count{job=\"variante-a-jersey\"})",
+            "legendFormat": "Variante A - Total",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(jvm_gc_pause_seconds_count{job=\"variante-c-spring-mvc\"})",
+            "legendFormat": "Variante C - Total",
+            "refId": "B"
+          },
+          {
+            "expr": "sum(jvm_gc_pause_seconds_count{job=\"variante-d-spring-data-rest\"})",
+            "legendFormat": "Variante D - Total",
+            "refId": "C"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        },
+        "options": {
+          "orientation": "auto",
+          "textMode": "value_and_name",
+          "colorMode": "value"
+        }
+      }
+    ]
+  },
+  "overwrite": false
+}
