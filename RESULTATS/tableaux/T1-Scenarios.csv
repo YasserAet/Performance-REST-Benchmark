@@ -1,0 +1,5 @@
+Scénario,Description,Threads,Ramp-up (s),Durée (min),Opérations
+01 - READ Heavy,Lecture intensive,50→200,300,30,"50% GET items, 20% GET items+cat, 20% GET cat/items, 10% GET categories"
+02 - JOIN Filter,Requêtes JOIN,60→120,300,30,"70% GET items by category, 30% GET item by ID"
+03 - MIXED,Opérations mixtes,50→100,300,30,"40% GET, 20% POST, 10% PUT, 10% DELETE"
+04 - HEAVY Body,Corps lourds 5KB,30→60,300,30,"50% POST 5KB, 50% PUT 5KB"

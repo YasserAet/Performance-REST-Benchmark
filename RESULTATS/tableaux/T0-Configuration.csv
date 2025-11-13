@@ -1,0 +1,15 @@
+Composant,Spécification
+**Matériel**,
+Processeur,"Intel Core i7-12700H @ 2.3GHz, 14 cores"
+RAM,16 GB DDR4
+Disque,SSD NVMe 512GB
+**Logiciel**,
+OS,Windows 11 Pro 22H2
+JDK,Microsoft OpenJDK 17.0.16+8-LTS
+PostgreSQL,14-alpine (Docker)
+Docker Desktop,4.25.0
+JMeter,5.6.3
+**Base de données**,
+Catégories,2000
+Items,100000
+Pool de connexions,"HikariCP (min=5, max=20)"

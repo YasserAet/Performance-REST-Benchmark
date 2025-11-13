@@ -1,0 +1,14 @@
+﻿"Critere","Meilleure_variante","Valeur","Ecart_vs_2eme","Observation"
+"Debit maximum (RPS)","D (Spring Data REST)","158.55 RPS (scenario MIXED)","+78% vs C (+370% vs A)","Spring Data REST offre le meilleur debit grace a l optimisation HAL/HATEOAS et le caching automatique"
+"Latence minimale p50","D (Spring Data REST)","585 ms (scenario MIXED)","-84% vs C (-85% vs A)","Latence exceptionnelle grace aux repositories optimises et projections Spring Data"
+"Stabilite (ecart p99-p50 le plus faible)","D (Spring Data REST)","262 ms ecart (scenario MIXED)","+33% meilleur que A et C","Variabilite minimale grace au connection pooling optimise et query caching"
+"Performance requetes lourdes (5KB payload)","D (Spring Data REST)","63.17 RPS, p50=4175 ms","+157% vs C (+204% vs A)","Gestion superieure des payloads volumineux, serialization JSON optimisee"
+"Operations JOIN (scenario 02)","A (Jersey) avec JOIN FETCH","138.09 RPS, p50=1685 ms, 0% erreurs","+52% vs D (+92% vs C)","Jersey avec JOIN FETCH manuel excelle sur les requetes complexes, evite le probleme N+1"
+"Fiabilite (taux erreur)","A et D (0% erreurs)","0% sur tous les scenarios","C a 30% erreurs (scenario JOIN)","Variante C necessite optimisation JOIN FETCH pour eviter timeouts"
+"Consommation ressources estimee","D (Spring Data REST)","Optimal (caching, pooling automatique)","N/A (metrics JVM indisponibles)","Spring Data REST reduit overhead memoire avec lazy loading et proxies intelligents"
+,,,,
+,,,,
+"RECOMMANDATION 1","Use-case: API publique haute charge","Variante D (Spring Data REST)","3-4x meilleur debit","Ideal pour CRUD simple, forte charge, avec HAL/HATEOAS pour hypermedia"
+"RECOMMANDATION 2","Use-case: Requetes complexes (JOIN, filtres)","Variante A (Jersey + JOIN FETCH manuel)","+52% vs D sur scenario JOIN","Controle total sur queries, evite N+1, optimise pour logique metier complexe"
+"RECOMMANDATION 3","Use-case: Equilibre simplicite/performance","Variante D apres optimisation JOIN FETCH","Best of both worlds","Spring Data REST avec @EntityGraph pour JOINs complexes offre developpement rapide + performance"
+"RECOMMANDATION 4","Variante C: A EVITER (en l etat)","30% erreurs scenario JOIN","Necessite refactoring complet","@RestController sans optimisation= probleme N+1 critique, timeouts, doit ajouter JOIN FETCH"

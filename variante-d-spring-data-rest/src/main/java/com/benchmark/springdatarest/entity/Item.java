@@ -24,8 +24,8 @@ public class Item {
     private String sku;
 
     @NotBlank(message = "Le nom est obligatoire")
-    @Size(max = 128, message = "Le nom ne peut pas dépasser 128 caractères")
-    @Column(name = "name", nullable = false, length = 128)
+    @Size(max = 2000, message = "Le nom ne peut pas dépasser 2000 caractères")
+    @Column(name = "name", nullable = false, length = 2000)
     private String name;
 
     @NotNull(message = "Le prix est obligatoire")
@@ -37,6 +37,9 @@ public class Item {
     @Min(value = 0, message = "Le stock doit être positif")
     @Column(name = "stock", nullable = false)
     private Integer stock;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @NotNull(message = "La catégorie est obligatoire")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -105,6 +108,14 @@ public class Item {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Category getCategory() {

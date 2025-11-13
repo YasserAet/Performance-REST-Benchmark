@@ -1,0 +1,11 @@
+Timestamp,Variante,Scénario,Type,Description,Impact,Résolution
+2025-11-11 14:23:15,A,HEAVY Body,WARNING,"Heap usage > 85%",Ralentissement mineur,GC automatique résolu
+2025-11-11 14:45:32,C,MIXED,ERROR,"Connection pool exhausted (max 20)",40 erreurs sur 5 secondes,Pool recovery automatique
+2025-11-11 15:12:08,D,READ Heavy,WARNING,"GC pause > 500ms",Spike latence P99 à 800ms,Pause unique - retour normal
+,,,,,,
+,,,,,,
+NOTES:,,,,,,
+"Remplir uniquement si des incidents surviennent durant les tests",,,,,,
+"Types: ERROR, WARNING, TIMEOUT, OOM, CONNECTION_POOL, GC_PRESSURE",,,,,,
+"Impact: Quantifier (nb erreurs, durée, latence affectée)",,,,,,
+"Source: Logs application + JMeter console + Grafana alerts",,,,,,
