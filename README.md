@@ -185,7 +185,7 @@ MIT
 
 ## Auteurs
 
-- Yasser Aitali
+- Yassir Aitali
 - Fatima Ezzahra Kelladi
 
 Benchmark REST Performance Study
