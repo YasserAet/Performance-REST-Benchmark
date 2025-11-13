@@ -1,0 +1,91 @@
+# =========================================================
+# JMX EXPORTER CONFIGURATION
+# =========================================================
+# Defines which JMX metrics to expose in Prometheus format
+# =========================================================
+
+startDelaySeconds: 0
+ssl: false
+
+# Lowercase metric names
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+
+# Rules to export JVM metrics
+rules:
+  # JVM Memory
+  - pattern: 'java.lang<type=Memory><HeapMemoryUsage>(\w+)'
+    name: jvm_memory_heap_$1
+    type: GAUGE
+
+  - pattern: 'java.lang<type=Memory><NonHeapMemoryUsage>(\w+)'
+    name: jvm_memory_nonheap_$1
+    type: GAUGE
+
+  # JVM GC
+  - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionCount'
+    name: jvm_gc_collection_count
+    labels:
+      gc: $1
+    type: COUNTER
+
+  - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionTime'
+    name: jvm_gc_collection_time_ms
+    labels:
+      gc: $1
+    type: COUNTER
+
+  # JVM Threads
+  - pattern: 'java.lang<type=Threading><>ThreadCount'
+    name: jvm_threads_count
+    type: GAUGE
+
+  - pattern: 'java.lang<type=Threading><>DaemonThreadCount'
+    name: jvm_threads_daemon_count
+    type: GAUGE
+
+  # JVM CPU
+  - pattern: 'java.lang<type=OperatingSystem><>ProcessCpuLoad'
+    name: jvm_process_cpu_load
+    type: GAUGE
+
+  - pattern: 'java.lang<type=OperatingSystem><>SystemCpuLoad'
+    name: jvm_system_cpu_load
+    type: GAUGE
+
+  # JVM Classes
+  - pattern: 'java.lang<type=ClassLoading><>LoadedClassCount'
+    name: jvm_classes_loaded
+    type: GAUGE
+
+  # Tomcat/Jetty Connection Pool (if present)
+  - pattern: 'Catalina<type=ThreadPool, name="(.+)"><>currentThreadCount'
+    name: tomcat_threads_current
+    labels:
+      pool: $1
+    type: GAUGE
+
+  - pattern: 'Catalina<type=ThreadPool, name="(.+)"><>currentThreadsBusy'
+    name: tomcat_threads_busy
+    labels:
+      pool: $1
+    type: GAUGE
+
+  # HikariCP Database Connection Pool
+  - pattern: 'com.zaxxer.hikari<type=Pool, name=(.+)><>TotalConnections'
+    name: hikaricp_connections_total
+    labels:
+      pool: $1
+    type: GAUGE
+
+  - pattern: 'com.zaxxer.hikari<type=Pool, name=(.+)><>ActiveConnections'
+    name: hikaricp_connections_active
+    labels:
+      pool: $1
+    type: GAUGE
+
+  - pattern: 'com.zaxxer.hikari<type=Pool, name=(.+)><>IdleConnections'
+    name: hikaricp_connections_idle
+    labels:
+      pool: $1
+    type: GAUGE

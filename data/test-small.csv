@@ -1,0 +1,6 @@
+item_payload
+{"sku":"TEST-001","name":"Test 1","price":10.00,"stock":100,"category":"http://localhost:8083/categories/1"}
+{"sku":"TEST-002","name":"Test 2","price":20.00,"stock":200,"category":"http://localhost:8083/categories/2"}
+{"sku":"TEST-003","name":"Test 3","price":30.00,"stock":300,"category":"http://localhost:8083/categories/3"}
+{"sku":"TEST-004","name":"Test 4","price":40.00,"stock":400,"category":"http://localhost:8083/categories/1"}
+{"sku":"TEST-005","name":"Test 5","price":50.00,"stock":500,"category":"http://localhost:8083/categories/2"}
